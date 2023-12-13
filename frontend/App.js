@@ -3,10 +3,15 @@ import axios from "axios";
 
 import Charts from "./components/Charts";
 import Navbar from "./components/Navbar";
+import useGeceModuAc from "./hooks/geceModuAc"; // Yeni eklenen import
+
+
 
 const App = () => {
   const [coinData, setCoinData] = useState([]);
-  const [geceModu, setGeceModu] = useState(false);
+  //const [geceModu, setGeceModu] = useState(false);
+ const [geceModu, toggleGeceModu] = useGeceModuAc(false); // geceModu state'i ve toggleGeceModu fonksiyonu
+ 
 
   useEffect(() => {
     axios
@@ -18,7 +23,10 @@ const App = () => {
   }, []);
   return (
     <div className={geceModu ? "dark-mode App" : "App"}>
-      <Navbar geceModu={geceModu} setGeceModu={setGeceModu} />
+      <Navbar geceModu={geceModu} setGeceModu={toggleGeceModu} />
+
+
+      
       <Charts coinData={coinData} />
     </div>
   );
